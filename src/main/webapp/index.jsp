@@ -5,12 +5,23 @@
 <body>
 <h1>Table Students </h1>
 <h3>Add Student: </h3>
-<input placeholder="First Name"type="text" >
-<input placeholder="Second Name" type="text" >
-<input placeholder="Group"type="text" >
-<input placeholder="Birthday" type="text" >
+<form>
+<input placeholder="First Name" type="text" name ="Firstname" >
+<input placeholder="Second Name" type="text" name ="Secondname" >
+<input placeholder="Group" type="text" name ="Group" >
+<input placeholder="Birthday" type="text" name ="Birthday" >
 
-<button type="button">Add</button>
+<button type="submit">Add</button>
+</form>
+
+<%
+String fn = request.getParameter("Firstname");
+String sn = request.getParameter("Secondname");
+String g = request.getParameter("Group");
+String bd = request.getParameter("Birthday");
+
+%>
+
 <h3>Delete student: </h3>
 <input placeholder="Type Student ID" type="text" >
 <button type="button">Delete</button>
@@ -28,10 +39,10 @@
     </tr>
     <tr>
         <td>1</td>
-        <td>Maria</td>
-        <td>Anders</td>
-        <td>1101</td>
-        <td>02.08.1992</td>
+        <td><%=fn%></td>
+        <td><%=sn%></td>
+        <td><%=g%></td>
+        <td><%=bd%></td>
     </tr>
     <tr>
         <td>2</td>

@@ -11,6 +11,8 @@ import java.sql.*;
 public class baseStudents extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp)throws ServletException, IOException {
         PrintWriter writer = resp.getWriter();
+
+        String name = req.getParameter("firstname");
         try {
             Class.forName("org.postgresql.Driver");
         } catch (ClassNotFoundException e) {
@@ -33,25 +35,46 @@ public class baseStudents extends HttpServlet {
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
+        try{
+            Class.forName("org.postgresql.Driver").getDeclaredConstructor().newInstance();
+
+            try (Connection conn = DriverManager.getConnection("jdbc:postgresql://localhost:6666/postgres", "postgres", "3353")){
+
+                Statement statement = conn.createStatement();
+                int rows = statement.executeUpdate("INSERT INTO student (firstname, lastname, grupa,datee) VALUES ('iPhone X', 'wwd',1, '12-10-25')," +
+                        "('Galaxy S9', '45000',1,'12-10-25')");
+                System.out.printf("Added %d rows", rows);
+            }
+        }
+        catch(Exception ex){
+            System.out.println("Connection failed...");
+
+            System.out.println(ex);
+        }
+
 
 
     }
     protected void doPost(HttpServletRequest req, HttpServletResponse resp)throws ServletException, IOException {
-//        try {
-//            Class.forName("org.postgresql.Driver");
-//        } catch (ClassNotFoundException e) {
-//            e.printStackTrace();
-//        }
-//        try {
-//            Connection connect = DriverManager.getConnection("jdbc:postgresql://localhost:5432/students.db", "postgres", "3353");
-//            Statement statement = connect.createStatement();
-//            ResultSet rs = statement.executeQuery(" INSERT INTO student (firstname, lastname, grupa,datee)\n" +
-//                    "VALUES ('John','Smith','147','02.08.2000')");
-//            while(rs.next())
-//
-//        } catch (SQLException throwables) {
-//            throwables.printStackTrace();
-//        }
+        try{
+            Class.forName("org.postgresql.Driver").getDeclaredConstructor().newInstance();
+
+            try (Connection conn = DriverManager.getConnection("jdbc:postgresql://localhost:6666/postgres", "postgres", "3353")){
+
+                Statement statement = conn.createStatement();
+                int rows = statement.executeUpdate("INSERT student (firstname, lastname, grupa,datee) VALUES ('iPhone X', 'wwd','iPhone X', 'wwd')," +
+                        "('Galaxy S9', '45000','dasd','dasdas')");
+                System.out.printf("Added %d rows", rows);
+            }
+        }
+        catch(Exception ex){
+            System.out.println("Connection failed...");
+
+            System.out.println(ex);
+        }
+
+
+
 
     }
 }
