@@ -1,3 +1,8 @@
+<%@ page import="java.sql.ResultSet" %>
+<%@ page import="java.sql.SQLException" %>
+<%@ page import="javax.servlet.http.HttpServletRequest" %>
+<%@ page import="java.sql.*" %>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -50,6 +55,33 @@ String bd = request.getParameter("Birthday");
         <td>Chang</td>
         <td>2332</td>
         <td>02.08.1992</td>
+    </tr>
+</table>
+<%----------------------------------------------------------%>
+
+<%ResultSet bb = (ResultSet) request.getAttribute("students");%>
+
+<table>
+    <tr>
+        <th>ID</th>
+        <th>First Name</th>
+        <th>Second Name</th>
+        <th>Group</th>
+        <th>Birthday</th>
+    </tr>
+    <tr>
+<%    while(true){
+        try {
+            if (!bb.next()) break;%>
+        <td><%= out.print(bb.getString("id")) %></td>
+        <td><%= out.print(bb.getString("firstname")) %></td>
+        <td><%= out.print(bb.getString("lastname")) %></td>
+        <td><%= out.print(bb.getString("grupa")) %></td>
+        <td><%= out.print(bb.getString("datee")) %></td>
+        <%} catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+    }%>
     </tr>
 </table>
 </body>

@@ -22,35 +22,21 @@ public class baseStudents extends HttpServlet {
             Connection connect = DriverManager.getConnection("jdbc:postgresql://localhost:6666/postgres", "postgres", "3353");
             Statement statement = connect.createStatement();
             ResultSet rs = statement.executeQuery("SELECT id,firstname,lastname,grupa,datee FROM student");
-
-            while(rs.next()){
-                writer.print(rs.getString("id"));
-                writer.print(rs.getString("firstname"));
-                writer.print(rs.getString("lastname"));
-                writer.print(rs.getString("grupa"));
-                writer.println(rs.getString("datee"));
-
-            }
-            statement.close();
+            req.setAttribute("students", rs);
+//            while(rs.next()){
+//                writer.print(rs.getString("id"));
+//                writer.print(rs.getString("firstname"));
+//                writer.print(rs.getString("lastname"));
+//                writer.print(rs.getString("grupa"));
+//                writer.println(rs.getString("datee"));
+//
+//            }
+//            statement.close();
+            getServletContext().getRequestDispatcher("/index.jsp").forward(req,resp);
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
-        try{
-            Class.forName("org.postgresql.Driver").getDeclaredConstructor().newInstance();
 
-            try (Connection conn = DriverManager.getConnection("jdbc:postgresql://localhost:6666/postgres", "postgres", "3353")){
-
-                Statement statement = conn.createStatement();
-                int rows = statement.executeUpdate("INSERT INTO student (firstname, lastname, grupa,datee) VALUES ('iPhone X', 'wwd',1, '12-10-25')," +
-                        "('Galaxy S9', '45000',1,'12-10-25')");
-                System.out.printf("Added %d rows", rows);
-            }
-        }
-        catch(Exception ex){
-            System.out.println("Connection failed...");
-
-            System.out.println(ex);
-        }
 
 
 
@@ -62,8 +48,8 @@ public class baseStudents extends HttpServlet {
             try (Connection conn = DriverManager.getConnection("jdbc:postgresql://localhost:6666/postgres", "postgres", "3353")){
 
                 Statement statement = conn.createStatement();
-                int rows = statement.executeUpdate("INSERT student (firstname, lastname, grupa,datee) VALUES ('iPhone X', 'wwd','iPhone X', 'wwd')," +
-                        "('Galaxy S9', '45000','dasd','dasdas')");
+                int rows = statement.executeUpdate("INSERT INTO student (firstname, lastname, grupa,datee) VALUES ('iPhone X', 'wwd',1, '12-10-25')," +
+                        "('Galaxy S9', '45000',1,'12-10-25')");
                 System.out.printf("Added %d rows", rows);
             }
         }
